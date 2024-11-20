@@ -9,13 +9,6 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { config } from '../../../../config';
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
-
-
-
-
-
-
-
 @Component({
   selector: 'app-add-student',
   standalone: true,
@@ -28,7 +21,7 @@ import { ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet } fr
 export class AddStudentComponent {
   imagePreview: string | ArrayBuffer | null = null;
 
-  imagedata: string | ArrayBuffer | null = null;
+  oldimagedata: string | ArrayBuffer | null = null;
 
   firstName: string = '';
   lastName: string = '';
@@ -46,6 +39,7 @@ export class AddStudentComponent {
   studentImg: File | null = null;
   maxFileSize = 2 * 1024 * 1024;  // 2MB
   isRequired = true;
+  submitType: string = 'add'
 
 
   isSubmitted = false;
@@ -119,10 +113,10 @@ export class AddStudentComponent {
     }
   }
 
-  onSubmit(form: NgForm, submitType: string = 'add', studentData: any = []) {
+  onSubmit(form: NgForm,  studentData: any = []) {
     this.isSubmitted = true;
     if (form.valid) {
-        if(submitType === 'add') {
+        if(this.submitType === 'add') {
           this.registerStudent();
         }
         else {
@@ -176,10 +170,11 @@ export class AddStudentComponent {
           console.error('Error registering student:', error);
         }
     )
-  };
+  }
 
   updateStudent() {
-    console.log("hh")
+
+    
     let imageData = '';
 
     if (this.imagePreview) {
@@ -190,6 +185,9 @@ export class AddStudentComponent {
         // If it's an ArrayBuffer, convert it to a base64 string
         
     }
+
+    // console.log(imageData)
+
     const data = {
         studentId: this.studentId,
         first_name: this.firstName,
@@ -201,12 +199,13 @@ export class AddStudentComponent {
         applied_courses: this.appliedCourses,
         stream: this.studentStream,
         image: imageData,  // Ensure it's a string if it's not null
+        oldimagedata: this.oldimagedata,
         information: this.addInfo
     };
 
-    console.log(data);
     
-    this.isRequired = false;
+    
+    // this.isRequired = false;
 
     this.http.post(`${config.apiUrl}student/update`, data).subscribe(
         (resultData: any) => {
@@ -239,6 +238,8 @@ export class AddStudentComponent {
             this.imagePreview= config.apiUrl + resultData.data.image;
             this.studentStream = resultData.data.stream;
             this.addInfo = resultData.data.information;
+            this.submitType = 'edit';
+            this.oldimagedata = resultData.data.image;
 
         } else {
           alert("Error fetching student.");
@@ -250,6 +251,7 @@ export class AddStudentComponent {
       }
     );
   }
+
   clearForm() {
     this.studentId = '';
     this.firstName = '';

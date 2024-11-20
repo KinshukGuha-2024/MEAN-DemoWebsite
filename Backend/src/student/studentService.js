@@ -104,10 +104,7 @@ module.exports.createStudentDataFromDBService = async (studentDetails) => {
 
 
 module.exports.updateStudentrDataFromDBService =  async (studentDetails) => {
-    console.log(studentDetails);
     try {
-
-
         if (studentDetails.image) {
             const base64Image = studentDetails.image;
             const matches = base64Image.match(/^data:image\/([a-z]+);base64,/);
@@ -132,12 +129,12 @@ module.exports.updateStudentrDataFromDBService =  async (studentDetails) => {
                 fs.writeFileSync(uploadPath, imageBuffer);
 
                 // Store the image path in the model
-                studentModelComp.image = `uploads/student/${fileName}`;
+                image = `uploads/student/${fileName}`;
             } else {
                 throw new Error('Invalid image format');
             }
         } else {
-            studentModelComp.image = ''; // If no image, set to an empty string
+            image = studentDetails.oldimagedata; // If no image, set to an empty string
         }
 
         const updatedStudent = await studentModelComp.findByIdAndUpdate(
@@ -151,6 +148,7 @@ module.exports.updateStudentrDataFromDBService =  async (studentDetails) => {
                 year: studentDetails.year,
                 applied_courses: studentDetails.applied_courses,
                 stream: studentDetails.stream,
+                image: image,
                 information: studentDetails.information
 
 
