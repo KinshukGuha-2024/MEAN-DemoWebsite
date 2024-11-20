@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    
+
+    
+
+</head>
+
+<body id="page-top">
+    
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <app-sidebar></app-sidebar> 
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <app-header></app-header>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <div *ngIf="message" class="alert alert-success">
+                        {{ message }}
+                    </div>
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                        
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Total Students</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ students.length }}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fa-solid fa-user fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+
+                    <!-- Content Row -->
+
+                    <div class="row">
+
+                        <!-- Area Chart -->
+                        <div class="col-12 ">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h4 class="m-0 font-weight-bold text-primary">Students Data</h4>
+                                        <a href="/student/add" class="btn btn-success " style="font-weight:400; font-size: 18px;"> <i class="fa-solid fa-square-plus p-2"></i>Add Student</a>
+                                    </div>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <table class="table">
+                                        <thead>
+                                          <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Phone</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Year</th>
+                                            <th scope="col">Stream</th>
+                                            <th scope="col">Operation</th>
+                        
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          
+                                          <tr *ngIf="students.length === 0">
+                                            <td colspan="6" class="text-center">No students available</td>
+                                          </tr>
+                        
+                                          <tr *ngFor="let student of students; let i = index">
+                                                <th scope="row">{{ i+1 }}</th>
+                                                <td id="name">{{ student.first_name }} {{ student.last_name }}</td>
+                                                <td id="phone">{{ student.phone }}</td>
+                                                <td id="email">{{ student.email }}</td>
+                                                <td id="address">{{ student.yearlabel }}</td>
+                                                <td id="stream">{{ student.stream }}</td>
+                                                <td >
+                                                    <a id="update-btn" [routerLink]="['/student/update', student._id]"  class="btn btn-warning m-1"><i class="fa-solid fa-pen-to-square"></i> Update</a>
+                                                    <button id="delete-btn" (click)="deleteStudent(student)" class="btn btn-danger m-1"> <i class="fa-solid fa-trash"></i> Delete</button>
+                                                </td>
+                                          </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <app-footer></app-footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    
+
+   
+
+</body>
+
+</html>

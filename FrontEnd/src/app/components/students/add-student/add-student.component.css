@@ -1,0 +1,135 @@
+
+  
+  .title {
+    font-size: 28px;
+    color: royalblue;
+    font-weight: 600;
+    letter-spacing: -1px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+  }
+  
+  .title::before,.title::after {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    left: 0px;
+    background-color: royalblue;
+  }
+  
+  .title::before {
+    width: 18px;
+    height: 18px;
+    background-color: royalblue;
+  }
+  
+  .title::after {
+    width: 18px;
+    height: 18px;
+    animation: pulse 1s linear infinite;
+  }
+  
+  @keyframes pulse {
+    from {
+      transform: scale(0.9);
+      opacity: 1;
+    }
+  
+    to {
+      transform: scale(1.8);
+      opacity: 0;
+    }
+  }
+
+
+
+
+
+  /* General form styling */
+.form {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: auto;
+}
+
+/* Input Fields Styling */
+.form-control, .form-select {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+/* Buttons Styling */
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Row Spacing */
+.row {
+    margin-bottom: 15px;
+}
+
+/* Radio Button and Checkbox Styling */
+.form-check {
+    margin-bottom: 10px;
+}
+
+.form-check-input {
+    margin-right: 10px;
+}
+
+/* Label Styling */
+.form-check-label {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.form-select, .form-control, .btn {
+    box-sizing: border-box;
+}
+
+/* File input */
+input[type="file"] {
+    padding: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .col-md-6, .col-md-12 {
+        width: 100% !important;
+    }
+}
+
+.image-preview-container {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.image-preview-container img {
+    max-width: 100%;
+    height: auto;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+}
+
+#remove-btn{
+    height: fit-content;
+}

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    
+
+    
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <app-sidebar></app-sidebar> 
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <app-header></app-header>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Register New Student</h1>
+                        
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-2 mb-4 ">
+                            <div class="card border-left-primary shadow  py-2" style="height: auto; width: auto;">
+                                <a href="student/dashboard" class="d-flex align-items-center" style="cursor: pointer;text-decoration: none;">
+                                    <i class="fa-solid fa-chevron-left fa-2x text-blue-300 ml-2 mr-2"></i>
+                                    <h5 style="font-weight: bold; margin-top: 6px;">BACK</h5>
+                                </a>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+
+                    <!-- Content Row -->
+
+                    <div class="row">
+
+                        <!-- Area Chart -->
+                        <div class="col-12 ">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h4 class="m-0 font-weight-bold text-primary title">Add Student</h4>
+                                    </div>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                
+                                    <div class="chart-area">
+                                        <form class="form" (ngSubmit)="onSubmit(form)" #form="ngForm" id="studentForm">
+                                            <!-- Row 1: Name and Email -->
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" placeholder="First Name" name="first_name"
+                                                        [(ngModel)]="firstName" id="first_name" #first_name="ngModel" required>
+                                                    <div *ngIf="first_name.invalid && isSubmitted">
+                                                        <div *ngIf="first_name.errors?.['required']" class="text-danger">
+                                                            First Name is required.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" placeholder="Last Name" name="last_name"
+                                                        [(ngModel)]="lastName" id="last_name" #last_name="ngModel" required>
+                                                    <div *ngIf="last_name.invalid && isSubmitted">
+                                                        <div *ngIf="last_name.errors?.['required']" class="text-danger">
+                                                            Last Name is required.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                
+                                            <!-- Row 2: Phone and Address -->
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" placeholder="Phone Number" [(ngModel)]="phoneNo" [pattern]="phonePattern"  #phone="ngModel" name="phone" id="phone" required>
+                                                    <div *ngIf="phone.invalid && isSubmitted">
+                                                        <div *ngIf="phone.errors?.['required']" class="text-danger">
+                                                            Phone Number is required.
+                                                        </div>
+                                                        <div *ngIf="phone.errors?.['pattern']" class="text-danger">
+                                                            Phone Number must be a 10-digit number.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="email" class="form-control" [(ngModel)]="emailAddress" [pattern]="emailPattern"  #email="ngModel" placeholder="Email" name="email" id="email" required>
+                                                    <div *ngIf="email.invalid && isSubmitted">
+                                                        <div *ngIf="email.errors?.['required']" class="text-danger">
+                                                            Email Address is required.
+                                                        </div>
+                                                        <div *ngIf="email.errors?.['pattern']" class="text-danger">
+                                                            Email Address is Invalid.
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                
+                                            <!-- Row 3: College Year and Stream -->
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" [(ngModel)]="studentAddress"  #address="ngModel" placeholder="Address" name="address" id="address" required>
+                                                    <div *ngIf="address.invalid && isSubmitted">
+                                                        <div *ngIf="address.errors?.['required']" class="text-danger">
+                                                            Address is required.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <select class="form-select form-control" [(ngModel)]="collegeYear"  #collegeyear="ngModel" name="collegeyear" id="collegeyear" required>
+                                                        <option value="">Select College Year</option>
+                                                        <option value="1">First Year</option>
+                                                        <option value="2">Second Year</option>
+                                                        <option value="3">Third Year</option>
+                                                        <option value="4">Fourth Year</option>
+                                                    </select>
+                                                    <div *ngIf="collegeyear.invalid && isSubmitted">
+                                                        <div *ngIf="collegeyear.errors?.['required']" class="text-danger">
+                                                            College Year is required.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                
+                                            <!-- Row 4: Applied Courses (Checkboxes) -->
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <label for="appliedcourses" style="font-weight: bold; font-size: 16px;  ">Applied Courses:</label>
+                                                    <div *ngFor="let course of courses">
+                                                        <div class="form-check">
+                                                            <input 
+                                                              type="checkbox" 
+                                                              class="form-check-input" 
+                                                              [value]="course" 
+                                                              (change)="onCheckboxChange(course, $event)"  
+                                                              [checked]="appliedCourses.includes(course)"
+                                                            />
+                                                            <label class="form-check-label">{{ course }}</label>
+                                                          </div>
+                                                    </div>
+                                                    <div *ngIf="appliedCourses.length === 0 && isSubmitted" class="text-danger">
+                                                        Select Atleast One Course.
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div>
+                                                        <label class="form-check-label">Select Stream:</label>
+                                                        <div class="form-check">
+                                                            <input type="radio" [(ngModel)]="studentStream"  #stream="ngModel" class="form-check-input" name="stream" value="BCA" id="bca" required>
+                                                            <label class="form-check-label" for="bca">BCA</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input type="radio" [(ngModel)]="studentStream"  #stream="ngModel" class="form-check-input" name="stream" value="MCA" id="mca">
+                                                            <label class="form-check-label" for="mca">MCA</label>
+                                                        </div>
+
+                                                        <div class="form-check">
+                                                            <input type="radio" [(ngModel)]="studentStream"  #stream="ngModel" class="form-check-input" name="stream" value="BTech" id="btech">
+                                                            <label class="form-check-label" for="btech">BTech</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input type="radio" [(ngModel)]="studentStream"  #stream="ngModel" class="form-check-input" name="stream" value="Other" id="other">
+                                                            <label class="form-check-label" for="other">Other</label>
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf="stream.invalid && isSubmitted">
+                                                        <div *ngIf="stream.errors?.['required']" class="text-danger">
+                                                            Stream is required.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                
+                                            <!-- Row 5: Text Area -->
+                                            <div class="row mb-3">
+                                                <div class="col-md-12">
+                                                    <textarea class="form-control" [(ngModel)]="addInfo"  #additional_info="ngModel" placeholder="Additional Information" name="additional_info" id="additional_info"></textarea>
+                                                </div>
+                    
+                                            </div>
+                                
+                                            <!-- Row 6: Image Upload -->
+                                            <div class="row mb-3">
+                                                <div class="col-md-12">
+                                                    <label for="image">Upload Image:</label>
+                                                    <div class="input-group">
+                                                        <input 
+                                                            type="file" 
+                                                            class="form-control" 
+                                                            name="image" 
+                                                            id="image" 
+                                                            (change)="onFileSelected($event)" 
+                                                            accept="image/*" 
+                                                            [(ngModel)]="studentImg"  
+                                                            #image="ngModel"
+                                                            [attr.required]="isRequired ? true : null"
+                                                        >
+
+                                                        <!-- Cross Button to Remove the File -->
+                                                        <button 
+                                                            type="button"
+                                                            id="remove-btn" 
+                                                            class="btn btn-danger" 
+                                                            (click)="removeFile()">
+                                                            ✖
+                                                        </button>
+                                                    </div>
+                                                    <div *ngIf="image.invalid && isSubmitted" class="text-danger">
+                                                        <div *ngIf="image.errors?.['required']">Image is required.</div>
+                                                        <div *ngIf="image.errors?.['invalidType']">Only image files are allowed.</div>
+                                                        <div *ngIf="image.errors?.['fileTooLarge']">File size exceeds 2 MB.</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Image Preview -->
+                                            <div class="row mb-3" *ngIf="imagePreview">
+                                                <div class="col-md-12">
+                                                    <label>Image Preview:</label>
+                                                    <div class="image-preview-container">
+                                                        <img [src]="imagePreview" alt="Selected Image" class="img-thumbnail">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                
+                                            <!-- Submit Button -->
+                                            <div class="row mb-3">
+                                                <div class="col-md-12">
+                                                    <div class="col-md-12 d-flex justify-content-end">
+                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                
+                                
+                            </div>
+                        </div>
+
+                        
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <app-footer></app-footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    
+
+   
+
+</body>
+
+</html>
