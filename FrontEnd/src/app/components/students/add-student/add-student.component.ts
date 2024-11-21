@@ -8,17 +8,26 @@ import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { config } from '../../../../config';
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-add-student',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterOutlet, RouterLink, HeaderComponent, FooterComponent, SidebarComponent, HttpClientModule],
+  imports: [FormsModule, CommonModule, RouterOutlet, RouterLink, HeaderComponent, FooterComponent, SidebarComponent, HttpClientModule, CKEditorModule],
   templateUrl: './add-student.component.html',
   styleUrl: './add-student.component.css'
 })
 
 
 export class AddStudentComponent {
+  public editor = ClassicEditor;
+
+  public editorConfig = {
+    language: 'en', // Set the language to English
+    placeholder: 'Additional Information',
+    direction: 'ltr',
+  };
   imagePreview: string | ArrayBuffer | null = null;
 
   oldimagedata: string | ArrayBuffer | null = null;
@@ -235,12 +244,12 @@ export class AddStudentComponent {
             this.emailAddress = resultData.data.email;
             this.collegeYear = resultData.data.year;
             this.appliedCourses = resultData.data.applied_courses;
-            this.imagePreview= config.apiUrl + resultData.data.image;
+            this.imagePreview= resultData.data.image!= '' ? config.apiUrl + resultData.data.image : '';
             this.studentStream = resultData.data.stream;
             this.addInfo = resultData.data.information;
             this.submitType = 'edit';
             this.oldimagedata = resultData.data.image;
-
+          console.log(this.imagePreview);
         } else {
           alert("Error fetching student.");
         }

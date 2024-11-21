@@ -44,7 +44,6 @@ exports.createDataControllerfn = async (Request, res) => {
 };
 
 exports.updateControllerfn = async (Request, res) => {
-    console.log(Request.body);
     try {
         const status = await studentService.updateStudentrDataFromDBService(Request.body);
         if (status) {
