@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    
+
+    
+
+</head>
+
+<body id="page-top">
+    
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <app-sidebar></app-sidebar> 
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <app-header></app-header>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <!-- <div *ngIf="message" class="alert alert-success">
+                        {{ message }}
+                    </div> -->
+
+
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        
+
+                        
+                    </div>
+
+                    <!-- Content Row -->
+
+                    <div class="row">
+
+                        <!-- Area Chart -->
+                        <div class=" w-100">
+                            <div class="card shadow mb-4">
+                                <div class="form">
+                                    <div class="banner"></div>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <h1 style="font-weight: bold;color: black;"> Donate Us <i class="fa-solid fa-hand-holding-dollar"></i></h1>                                    
+                                    </div>
+                                    <div class="tab-container">
+                                        <button 
+                                        class="tab" 
+                                        [class.active]="activeTab === 'one-time'" 
+                                        (click)="setActiveTab('one-time')">
+                                        One Time
+                                        </button>
+                                        <button 
+                                        class="tab" 
+                                        [class.active]="activeTab === 'monthly'" 
+                                        (click)="setActiveTab('monthly')">
+                                        Monthly
+                                        </button>
+                                        <button 
+                                        class="tab" 
+                                        [class.active]="activeTab === 'annually'" 
+                                        (click)="setActiveTab('annually')">
+                                        Annually
+                                        </button>
+                                        <div 
+                                        class="indicator" 
+                                        [ngStyle]="{'left': getIndicatorPosition()}">
+                                        </div>
+                                    </div>
+                                    
+
+                                    <div class="donation-form-container">
+                                       
+                                        <form (ngSubmit)="onSubmit()" #donationForm="ngForm">
+                                            <!-- Input Fields -->
+                                            <div class="form-row">
+                                                <input
+                                                type="text"
+                                                name="firstName"
+                                                placeholder="First Name"
+                                                [(ngModel)]="donationData.firstName"
+                                                required
+                                                />
+                                                <input
+                                                type="text"
+                                                name="lastName"
+                                                placeholder="Last Name"
+                                                [(ngModel)]="donationData.lastName"
+                                                required
+                                                />
+                                                <input
+                                                type="email"
+                                                name="email"
+                                                placeholder="Email Address"
+                                                [(ngModel)]="donationData.email"
+                                                required
+                                                />
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-center " style="border-bottom: 0.5px solid #dfdddd;">
+                                                <h5 style="font-weight: bold; color: black;">Donate Ammount </h5>
+                                                <br>
+
+                                            </div>
+                                            <br>
+
+                                            <!-- Predefined Donation Amounts -->
+                                            <div class="donation-options">
+                                                <div *ngFor="let amount of predefinedAmounts">
+                                                <input
+                                                    type="radio"
+                                                    name="amount"
+                                                    [value]="amount"
+                                                    [(ngModel)]="donationData.amount"
+                                                    id="amount-{{ amount }}"
+                                                    (change)="clearField()"
+                                                />
+                                                <label for="amount-{{ amount }}">{{ amount }}$</label>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Custom Donation -->
+                                            <div class="custom-donation">
+                                                <input
+                                                type="number"
+                                                name="customAmount"
+                                                id="customAmount"
+                                                [(ngModel)]="customAmount"
+                                                (input)="updateCustomAmount()"
+                                                min="1"
+                                                placeholder="Custom Amount"
+                                                />
+                                            </div>
+  
+                                        
+                                            <!-- Submit Button -->
+                                             <div>
+                                               
+                                                <button type="submit" [disabled]="!donationForm.valid"> <div class="d-flex justify-content-center align-items-center"><div *ngIf="donationData.amount != 0">{{ donationData.amount }}$ &nbsp;</div> Donate Now</div></button>
+                                             </div>
+                                        </form>
+                                    </div>
+                                           
+
+                                    
+                                   
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <app-footer></app-footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    
+
+   
+
+</body>
+
+</html>

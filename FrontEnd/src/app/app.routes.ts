@@ -4,10 +4,8 @@ import { AddStudentComponent } from './components/students/add-student/add-stude
 import { StudentAuthenticationComponent } from './components/student-authentication/student-authentication.component';
 import { AuthGuard } from './auth.guard.spec';
 import { redirectAuthGuard } from './redirect-auth.guard';
-// import { AuthGuard } from './auth.guard'; // Corrected import for AuthGuard
-// import { RedirectGuard } from './redirect-auth.guard'; // Import for the RedirectGuard
-// AuthGuard
-// redirectAuthGuard
+import { DonationComponent } from './components/donation/donation.component';
+
 
 export const routes: Routes = [
   {
@@ -29,6 +27,12 @@ export const routes: Routes = [
     canActivate: [AuthGuard]  // Protect the route with AuthGuard
   },
   {
+    path: 'donation',
+    title: 'Demo Website | Donate',
+    component: DonationComponent,
+    canActivate: [AuthGuard] 
+  },
+  {
     path: 'student/login',
     title: 'Demo Website | Login',
     component: StudentAuthenticationComponent,
@@ -37,5 +41,6 @@ export const routes: Routes = [
   {
     path: '**',
     redirectTo: '/student/login' // Default redirect to login if the route doesn't exist
-  }
+  },
+  
 ];

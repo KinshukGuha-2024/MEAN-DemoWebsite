@@ -1,0 +1,309 @@
+  /* From Uiverse.io by zanina-yassine */ 
+  .modal {
+    width: 450px;
+    background: linear-gradient(180deg, #DCF9E0 0%, #FFFFFF 30.21%);
+    box-shadow: 0px 187px 75px rgba(0, 0, 0, 0.01), 0px 105px 63px rgba(0, 0, 0, 0.05), 0px 47px 47px rgba(0, 0, 0, 0.09), 0px 12px 26px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+  }
+
+  .banner {
+    width: 100%;
+    height: 30px;
+    margin: 0;
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
+
+  .title {
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 21px;
+    text-align: center;
+    color: #2B2B2F;
+    margin-bottom: 15px;
+  }
+
+  .description {
+    max-width: 80%;
+    margin: auto;
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16px;
+    text-align: center;
+    color: #5F5D6B;
+  }
+
+  .tab-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    position: relative;
+    padding: 2px;
+    background-color: #ebebec;
+    border-radius: 9px;
+    margin: 10px 20px 0px 20px;
+  }
+  
+  .tab {
+    width: 33.33%;
+    height: 35px;
+    position: relative;
+    z-index: 99;
+    background-color: transparent;
+    border: 0;
+    outline: none;
+    flex: none;
+    align-self: stretch;
+    flex-grow: 1;
+    cursor: pointer;
+    font-weight: 500;
+    color: #5F5D6B; /* Default color */
+    transition: all 0.3s ease-out;
+  }
+  
+  .tab.active {
+    color: #2B2B2F; /* Active tab color */
+    font-weight: bold;
+  }
+  
+  .indicator {
+    content: "";
+    width: calc(100% / 3);
+    height: 35px;
+    background: #FFFFFF;
+    position: absolute;
+    top: 2px;
+    z-index: 9;
+    border: 0.5px solid rgba(0, 0, 0, 0.04);
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.12), 0px 3px 1px rgba(0, 0, 0, 0.04);
+    border-radius: 7px;
+    transition: all 0.2s ease-out;
+  }
+  
+  .tab--1:hover ~ .indicator {
+    left: 2px;
+  }
+  
+  .tab--2:hover ~ .indicator {
+    left: calc(33.33% - 2px);
+  }
+  
+  .tab--3:hover ~ .indicator {
+    left: calc(66.66% - 2px);
+  }
+
+  .benefits {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .benefits > span {
+    font-size: 15px;
+    color: #2B2B2F;
+    font-weight: 700;
+  }
+
+  .benefits ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .benefits ul li {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
+  .benefits ul li span {
+    font-weight: 600;
+    font-size: 12px;
+    color: #5F5D6B;
+  }
+
+  .modal--footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border-top: 1px solid #ebebec;
+  }
+
+  .price {
+    position: relative;
+    font-size: 32px;
+    color: #2B2B2F;
+    font-weight: 900;
+  }
+
+  .price sup {
+    font-size: 13px;
+  }
+
+  .price sub {
+    width: fit-content;
+    position: absolute;
+    font-size: 11px;
+    color: #5F5D6B;
+    bottom: 5px;
+    display: inline-block;
+  }
+
+  .upgrade-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 215px;
+    height: 40px;
+    background: #0bdd12;
+    box-shadow: 0px 0.5px 0.5px #EFEFEF, 0px 1px 0.5px rgba(239, 239, 239, 0.5);
+    border-radius: 7px;
+    border: 0;
+    outline: none;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
+  }
+
+  .upgrade-btn:hover {
+    background-color: #07b90d;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+
+
+  /* Container */
+.donation-form-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 30px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+/* Form Header */
+.donation-form-container h2 {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333333;
+}
+
+/* Form Row */
+.donation-form-container .form-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.donation-form-container .form-row input {
+  flex: 1 1 100%;
+  padding: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.donation-form-container .form-row input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.donation-options {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.donation-options label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.donation-options input {
+  display: none;
+}
+
+/* Updated active class to active-amount */
+.donation-options label:hover,
+.donation-options input:checked + label,
+.donation-options label.active-amount {
+  background-color: #007bff;
+  color: #ffffff;
+  border-color: #007bff;
+}
+
+/* Custom Donation */
+.custom-donation {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.custom-donation input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.custom-donation input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Submit Button */
+.donation-form-container button {
+  width: 100%;
+  padding: 15px;
+  font-size: 18px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.donation-form-container button:hover {
+  background-color: #0056b3;
+}
+
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (min-width: 576px) {
+  .form-row input {
+    flex: 1 1 calc(33.33% - 15px);
+  }
+}

@@ -27,10 +27,12 @@ export class AddStudentComponent {
     language: 'en', // Set the language to English
     placeholder: 'Additional Information',
     direction: 'ltr',
+    
   };
   imagePreview: string | ArrayBuffer | null = null;
 
   oldimagedata: string | ArrayBuffer | null = null;
+  currentPage: string = "Add Student";
 
   firstName: string = '';
   lastName: string = '';
@@ -249,7 +251,8 @@ export class AddStudentComponent {
             this.addInfo = resultData.data.information;
             this.submitType = 'edit';
             this.oldimagedata = resultData.data.image;
-          console.log(this.imagePreview);
+            this.currentPage = 'Update Student'
+          
         } else {
           alert("Error fetching student.");
         }
