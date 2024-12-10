@@ -1,7 +1,8 @@
 
 // --- Connection For Express ---
+require('dotenv').config();
 var express = require("express");
-const stripe = require('stripe')('sk_test_51OXjtaBpy9aFtc5RYFNmrUaoyWsBdiHm0KXVDstAVEGiSakXDZzaUXkMnB9quxoytVeO5FMqbTkO892srL6hXeC700Eq4oAaQ6');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 var routes = require('./routes/routes');
 const bodyParser = require('body-parser');
 const cors = require("cors");
