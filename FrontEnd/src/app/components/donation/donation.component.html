@@ -148,12 +148,18 @@
                                                 placeholder="Custom Amount"
                                                 />
                                             </div>
-  
+                                            <div class="w-100" style="padding-top:10px;padding-bottom:30px; height:auto;">
+                                                <ngx-stripe-card
+                                                    [options]="cardOptions"
+                                                    [elementsOptions]="elementsOptions"
+                                                ></ngx-stripe-card>
+                                            </div>
+                                            
                                         
                                             <!-- Submit Button -->
                                              <div>
                                                
-                                                <button type="submit" [disabled]="!donationForm.valid"> <div class="d-flex justify-content-center align-items-center"><div *ngIf="donationData.amount != 0">{{ donationData.amount }}$ &nbsp;</div> Donate Now</div></button>
+                                                <button type="submit" [disabled]="!donationForm.valid"> <div class="d-flex justify-content-center align-items-center">Pay &nbsp;<div *ngIf="donationData.amount != 0">{{ donationData.amount }}$ </div></div></button>
                                              </div>
                                         </form>
                                     </div>

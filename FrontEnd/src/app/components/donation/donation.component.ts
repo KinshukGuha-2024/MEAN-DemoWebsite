@@ -7,12 +7,14 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { config } from '../../../config';
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { NgxStripeModule } from 'ngx-stripe';
+import { StripeCardElementOptions, StripeElementsOptions, StripeIdealBankElementOptions } from '@stripe/stripe-js';
 
 
 @Component({
   selector: 'app-donation',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, HeaderComponent, FooterComponent, SidebarComponent, HttpClientModule, FormsModule],
+  imports: [CommonModule, RouterOutlet, RouterLink, HeaderComponent, FooterComponent, SidebarComponent, HttpClientModule, FormsModule, NgxStripeModule],
   templateUrl: './donation.component.html',
   styleUrl: './donation.component.css'
 })
@@ -76,4 +78,35 @@ export class DonationComponent {
       alert('Please select or enter a donation amount.');
     }
   }
+
+  cardOptions: StripeCardElementOptions = {
+      hidePostalCode: true,
+      style: {
+        base: {
+          iconColor: '#5e72e4',  
+          color: '#1a1a1a',  
+          fontWeight: '600',
+          fontFamily: 'Poppins, Arial, sans-serif',  
+          fontSize: '18px',  
+          fontSmoothing: 'antialiased',
+          ':-webkit-autofill': {
+            color: '#f4e1a1',  
+          },
+          '::placeholder': {
+            color: '#a1b2d2',  
+          },
+          padding: '10px 14px',  
+          backgroundColor: '#f8f8f8', 
+        },
+        invalid: {
+          iconColor: '#ff5f57',  
+          color: '#ff5f57',  
+        },
+      },
+  };
+
+
+  elementsOptions: StripeElementsOptions = {
+  locale: 'en',
+  };
 }
