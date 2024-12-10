@@ -1,6 +1,7 @@
 
 // --- Connection For Express ---
 var express = require("express");
+const stripe = require('stripe')('sk_test_51NvgHdSDfIeb5BiQ1tPfXHBRbw0agnSMnPcczVgV3g6Yc5T8qJIYgJTJBw1ALQVNci0CgRLATIfJucT7t33OcgqA00sTKy03ay');
 var routes = require('./routes/routes');
 const bodyParser = require('body-parser');
 const cors = require("cors");
@@ -34,5 +35,48 @@ async function connectDB() {
     }
 }
 connectDB();
+
+
+server.post('/create-payment-intent', async (req, res) => {
+    try {
+      const { amount, firstName, lastName, email, recur_type } = req.body;
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: amount * 100,  
+        currency: 'INR',       
+        description: `Donation from ${firstName} ${lastName} for ${recur_type} payment`,
+        receipt_email: email,
+        metadata: {
+          recur_type: recur_type,  
+          first_name: firstName,
+          last_name: lastName,
+          email: email
+        },
+      });
+      res.send({ clientSecret: paymentIntent.client_secret });
+    } catch (error) {
+      console.error('Error creating payment intent:', error);
+      res.status(500).send({ error: 'Failed to create payment intent' });
+    }
+  });
+  
+server.post('/confirm-payment', async (req, res) => {
+    const { paymentIntentId, paymentMethodId } = req.body;
+    if (!paymentIntentId || !paymentMethodId) {
+        return res.status(400).json({ error: 'Missing payment intent or payment method' });
+    }
+    try {
+        const paymentIntent = await stripe.paymentIntents.confirm(paymentIntentId, {
+        payment_method: paymentMethodId,
+        });
+        if (paymentIntent.status === 'succeeded') {
+        res.send({ success: true, message: 'Payment successful' });
+        } else {
+        res.status(400).send({ success: false, message: 'Payment failed' });
+        }
+    } catch (error) {
+        console.error('Error confirming payment:', error);
+        res.status(500).send({ error: error.message });
+    }
+});
 
 
