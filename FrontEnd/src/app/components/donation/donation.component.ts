@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { NgxStripeModule, StripeService, StripeCardComponent  } from 'ngx-stripe';
 import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-donation',
@@ -59,7 +60,9 @@ export class DonationComponent {
   predefinedAmounts: number[] = [15, 25, 50];
   customAmount: number | null = null;
   card: any;
-  constructor(private stripeService: StripeService, private http: HttpClient) {}
+  showLoader: boolean = false;
+  showPay: boolean = true;
+  constructor(private stripeService: StripeService, private http: HttpClient, private router: Router) {}
 
 
 
@@ -112,7 +115,9 @@ export class DonationComponent {
       alert('Please wait until the card element is fully loaded.');
       return;
     }
-
+    console.log('amount',this.donationData.amount)
+    this.showPay = false;
+    this.showLoader = true;
     if (this.donationData.amount > 0) {
       this.http.post<any>(`${config.apiUrl}create-payment-intent`, {
         amount: this.donationData.amount,
@@ -139,7 +144,7 @@ export class DonationComponent {
                 console.error('Payment Confirmation Error:', result.error);
                 alert(result.error.message);
               } else if (result.paymentIntent?.status === 'succeeded') {
-                alert(`Thank you for your donation of $${this.donationData.amount}!`);
+                this.router.navigate(['/donation/success']);
               }
             },
             (error) => {

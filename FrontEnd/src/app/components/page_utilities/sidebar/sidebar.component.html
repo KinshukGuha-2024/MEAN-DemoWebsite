@@ -2,42 +2,34 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
-        <div class="sidebar-brand-icon ">
-            <i class="fa-solid fa-laptop-code"></i>
-        </div>
-        <div class="sidebar-brand-text mx-2">DEMO WEBSITE</div>
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" routerLink="/">
+      <div class="sidebar-brand-icon">
+        <i class="fa-solid fa-laptop-code"></i>
+      </div>
+      <div class="sidebar-brand-text mx-2">DEMO WEBSITE</div>
     </a>
-
+  
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
-
+  
     <!-- Nav Item - Dashboard -->
     <li class="nav-item" [ngClass]="{'active': isDashboardActive}">
-        <a class="nav-link" href="/">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
+      <a class="nav-link" routerLink="/" >
+        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span>Dashboard</span>
+      </a>
     </li>
-
+  
     <hr class="sidebar-divider my-0">
-
-
-    <li class="nav-item " [ngClass]="{'active': isDonationActive}">
-        <a class="nav-link" href="/donation">
-            <i class="fa-solid fa-circle-dollar-to-slot"></i>
-            <span>Donate</span></a>
+  
+    <!-- Nav Item - Donate -->
+    <li class="nav-item" [ngClass]="{'active': isDonationActive}">
+      <a class="nav-link" routerLink="/donation" >
+        <i class="fa-solid fa-circle-dollar-to-slot"></i>
+        <span>Donate</span>
+      </a>
     </li>
-    <!-- Divider -->
-    <!-- <hr class="sidebar-divider"> -->
-
-   
-
-    
-
-    
-    
-
-   
-
-</ul>
-<!-- End of Sidebar -->
+  
+  </ul>
+  <!-- End of Sidebar -->
+  

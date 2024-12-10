@@ -1,7 +1,7 @@
 
 // --- Connection For Express ---
 var express = require("express");
-const stripe = require('stripe')('sk_test_51NvgHdSDfIeb5BiQ1tPfXHBRbw0agnSMnPcczVgV3g6Yc5T8qJIYgJTJBw1ALQVNci0CgRLATIfJucT7t33OcgqA00sTKy03ay');
+const stripe = require('stripe')('sk_test_51OXjtaBpy9aFtc5RYFNmrUaoyWsBdiHm0KXVDstAVEGiSakXDZzaUXkMnB9quxoytVeO5FMqbTkO892srL6hXeC700Eq4oAaQ6');
 var routes = require('./routes/routes');
 const bodyParser = require('body-parser');
 const cors = require("cors");
@@ -42,7 +42,7 @@ server.post('/create-payment-intent', async (req, res) => {
       const { amount, firstName, lastName, email, recur_type } = req.body;
       const paymentIntent = await stripe.paymentIntents.create({
         amount: amount * 100,  
-        currency: 'INR',       
+        currency: 'USD',       
         description: `Donation from ${firstName} ${lastName} for ${recur_type} payment`,
         receipt_email: email,
         metadata: {

@@ -5,6 +5,7 @@ import { StudentAuthenticationComponent } from './components/student-authenticat
 import { AuthGuard } from './auth.guard.spec';
 import { redirectAuthGuard } from './redirect-auth.guard';
 import { DonationComponent } from './components/donation/donation.component';
+import { SuccessComponent } from './components/donation/success/success.component';
 
 
 
@@ -31,6 +32,12 @@ export const routes: Routes = [
     path: 'donation',
     title: 'Demo Website | Donate',
     component: DonationComponent,
+    canActivate: [AuthGuard] 
+  },
+  {
+    path: 'donation/success',
+    title: 'Demo Website | Donate-Success',
+    component: SuccessComponent,
     canActivate: [AuthGuard] 
   },
   {

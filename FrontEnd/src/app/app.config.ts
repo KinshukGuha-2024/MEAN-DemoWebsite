@@ -11,7 +11,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(),
     importProvidersFrom(
-      NgxStripeModule.forRoot('pk_test_51NvgHdSDfIeb5BiQvWELBZI17A3OGtFpId0gHWAhPMkOecpl2zUSOxwXHGolu2oslexl9EY7gDRrsP3Yxxlie9EO009ojdOmMw') 
+      NgxStripeModule.forRoot('pk_test_51OXjtaBpy9aFtc5RSietSew4fg0PTbV1Z2Sb3IKpCfFLlXDenzpX6vkC2bCcZFxbo6qYtbxMlb4JWUkwKNYeQbec00xKO8mxWl') 
     ),
   ]
 };
