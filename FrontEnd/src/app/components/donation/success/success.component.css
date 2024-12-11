@@ -4,7 +4,7 @@ body {
 }
 
 .container {
-    max-width: 380px;
+    max-width: 750px;
     margin: 50px auto;
     overflow: hidden;
 }
@@ -126,7 +126,7 @@ body {
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     line-height: 48px;
-    font-size: 48px;
+    font-size: 38px;
     padding: 8px 0;
     margin-bottom: 24px;
 }

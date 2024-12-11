@@ -2,6 +2,7 @@ var express = require("express");
 const router = express.Router();
 var userController = require("../src/user/userController");
 var studentController = require("../src/student/studentController");
+var donationController = require("../src/donations/student/donationController");
 
 
 // User Routes
@@ -19,7 +20,8 @@ router.route('/student/delete').post(studentController.deleteControllerfn);
 
 
 
-
+//Donation Route
+router.route('/donation/save-data').post(donationController.createDonationControllerfn);
 
 
 //Auth Routes 

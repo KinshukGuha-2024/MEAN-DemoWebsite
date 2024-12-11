@@ -1,52 +1,38 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-var studentSchema = new Schema({
+var donationSchema = new Schema({
     
-    first_name: {
+    customer_name: {
         type: String,
         required: true
     },
-    last_name: {
+    stripe_transaction_id: {
         type: String,
         required: true
     },
-    address: {
-        type: String,
-        required: true
-    },
-    email: {
+    receipt_email: {
         type: String,
         required: true,
-        match: [/\S+@\S+\.\S+/, 'Please enter a valid email']
     },
-    phone: {
+    status: {
         type: String,
         required: true,
-        match: [/^\+?[0-9]{10,13}$/, 'Please enter a valid phone number']
     },
-    year: {
+    recur_type: {
         type: Number,
         required: true,
-        enum: [1, 2, 3, 4]  // Represents college year
+        enum: [1, 2, 3]  
     },
-    applied_courses: {
-        type: [String],  // Array of courses
+    amount: {
+        type: Number,  
         required: true
     },
-    stream: {
+    description:{
         type: String,
         required: true,
-        enum: ['BCA', 'MCA', 'BTech', 'Other']
-    },
-    information: {
-        type: String,
-        required: false
-    },
-    image: {
-        type: String,
-        required: false
     }
+   
 });
 
-module.exports = mongoose.model("student", studentSchema);
+module.exports = mongoose.model("donation", donationSchema);

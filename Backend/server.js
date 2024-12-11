@@ -48,9 +48,9 @@ server.post('/create-payment-intent', async (req, res) => {
         receipt_email: email,
         metadata: {
           recur_type: recur_type,  
-          first_name: firstName,
-          last_name: lastName,
-          email: email
+          first_name: firstName.trim(),
+          last_name: lastName.trim(),
+          email: email.trim()
         },
       });
       res.send({ clientSecret: paymentIntent.client_secret });
@@ -70,7 +70,7 @@ server.post('/confirm-payment', async (req, res) => {
         payment_method: paymentMethodId,
         });
         if (paymentIntent.status === 'succeeded') {
-        res.send({ success: true, message: 'Payment successful' });
+        res.send({ success: true, message: paymentIntent });
         } else {
         res.status(400).send({ success: false, message: 'Payment failed' });
         }

@@ -5,12 +5,11 @@ import { SidebarComponent } from '../page_utilities/sidebar/sidebar.component';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { config } from '../../../config';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { NgxStripeModule, StripeService, StripeCardComponent  } from 'ngx-stripe';
 import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
-
 @Component({
   selector: 'app-donation',
   standalone: true,
@@ -59,12 +58,14 @@ export class DonationComponent {
   };
   predefinedAmounts: number[] = [15, 25, 50];
   customAmount: number | null = null;
+  isValidAmount = false;
   card: any;
   showLoader: boolean = false;
   showPay: boolean = true;
+  isSubmitted = false;
+  emailPattern: string = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+
   constructor(private stripeService: StripeService, private http: HttpClient, private router: Router) {}
-
-
 
   // Method to set the active tab
   setActiveTab(tab: string): void {
@@ -87,8 +88,13 @@ export class DonationComponent {
   // Called when a custom amount is entered
   updateCustomAmount() {
     if (this.customAmount && this.customAmount > 0) {
+      this.isValidAmount = true; 
       this.clearPredefinedSelection(); // Clear predefined selection
       this.donationData.amount = this.customAmount;
+    }
+    else{
+      this.isValidAmount = false; 
+      this.donationData.amount = 0;
     }
   }
 
@@ -105,61 +111,77 @@ export class DonationComponent {
 
   // Clears custom amount input
   clearField() {
+    this.isValidAmount = true; 
     this.customAmount = null;
   }
 
   // Form submission logic
-  onSubmit() {
+  onSubmit(form: NgForm) {
     if (!this.stripeCard) {
       console.error('Stripe Card Component is not initialized.');
       alert('Please wait until the card element is fully loaded.');
       return;
     }
-    console.log('amount',this.donationData.amount)
-    this.showPay = false;
-    this.showLoader = true;
-    if (this.donationData.amount > 0) {
-      this.http.post<any>(`${config.apiUrl}create-payment-intent`, {
-        amount: this.donationData.amount,
-        firstName: this.donationData.firstName,
-        lastName: this.donationData.lastName,
-        email: this.donationData.email,
-        recur_type: this.activeTab,
-      }).subscribe(
-        (response) => {
-          const { clientSecret } = response;
-
-          // Confirm card payment
-          this.stripeService.confirmCardPayment(clientSecret, {
-            payment_method: {
-              card: this.stripeCard.element, 
-              billing_details: {
-                name: `${this.donationData.firstName} ${this.donationData.lastName}`,
-                email: this.donationData.email,
-              },
-            },
-          }).subscribe(
-            (result) => {
-              if (result.error) {
-                console.error('Payment Confirmation Error:', result.error);
-                alert(result.error.message);
-              } else if (result.paymentIntent?.status === 'succeeded') {
-                this.router.navigate(['/donation/success']);
-              }
-            },
-            (error) => {
-              console.error('Error confirming payment:', error);
-              alert('Something went wrong during payment confirmation. Please try again.');
-            }
-          );
-        },
-        (error) => {
-          console.error('Error creating payment intent:', error);
-          alert('Something went wrong while processing your payment. Please try again.');
-        }
-      );
+    this.isSubmitted = true;  
+    if (this.donationData.amount === 0 && this.customAmount === null) {
+      this.isValidAmount = false; 
     } else {
-      alert('Please enter a valid donation amount.');
+      this.isValidAmount = true; 
     }
-  }  
+    if (form.valid) {
+        this.showPay = false;
+        this.showLoader = true;
+        this.http.post<any>(`${config.apiUrl}create-payment-intent`, {
+          amount: this.donationData.amount,
+          firstName: this.donationData.firstName,
+          lastName: this.donationData.lastName,
+          email: this.donationData.email,
+          recur_type: this.activeTab,
+        }).subscribe(
+          (response) => {
+            const { clientSecret } = response;
+
+            // Confirm card payment
+            this.stripeService.confirmCardPayment(clientSecret, {
+              payment_method: {
+                card: this.stripeCard.element, 
+                billing_details: {
+                  name: `${this.donationData.firstName} ${this.donationData.lastName}`,
+                  email: this.donationData.email,
+                },
+              },
+            }).subscribe(
+              (result) => {
+                if (result.error) {
+                  console.error('Payment Confirmation Error:', result.error);
+                  alert(result.error.message);
+                } else if (result.paymentIntent?.status === 'succeeded') {
+                  this.http.post(`${config.apiUrl}donation/save-data`, result.paymentIntent).subscribe(
+                    (resultData: any) => {
+                        this.router.navigate(['/donation/success'], { queryParams: { key: resultData.data }});
+                      },
+                      (error) => {
+                        console.error('Error registering student:', error);
+                      }
+                  )
+                }
+              },
+              (error) => {
+                console.error('Error confirming payment:', error);
+                alert('Something went wrong during payment confirmation. Please try again.');
+              }
+            );
+          },
+          (error) => {
+            console.error('Error creating payment intent:', error);
+            alert('Something went wrong while processing your payment. Please try again.');
+          }
+        );
+    }else {
+      // Handle invalid form case
+      console.log('Form is invalid');
+    }
+  }
+  
+
 }

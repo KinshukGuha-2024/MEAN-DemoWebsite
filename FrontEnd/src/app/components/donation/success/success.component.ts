@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-success',
@@ -9,7 +10,15 @@ import { Router } from '@angular/router';
   styleUrl: './success.component.css'
 })
 export class SuccessComponent {
-  constructor(private router: Router) {}
+  data: any;  
+  transaction_id: string = '';
+  constructor(private router: Router, private activeRoute: ActivatedRoute) {}
+  ngOnInit() {
+    this.activeRoute.queryParams.subscribe(params => {
+      this.transaction_id = params['key'] ? params['key'] : null;
+      console.log('Received data:', this.transaction_id);
+    });
+  }
   navigateToDonation() {
     this.router.navigate(['/student/dashboard']);
   }
