@@ -27,11 +27,13 @@ export class DashboardComponent {
   localStorageData: any;
   user_name: string ='';
   message: string | null = null;
+  donation: number = 0;
 
   constructor(private router: Router, private http: HttpClient, private route: ActivatedRoute) {}
   
   ngOnInit(): void {
     this.get_students(); 
+    this.get_donationTotal();
     this.route.queryParams.subscribe(params => {
       this.message = params['message'] || null;
     });
@@ -62,6 +64,23 @@ export class DashboardComponent {
             console.error('Error fetching students:', error);
             alert("Error fetching student data.");
         }
+    );
+  }
+
+  get_donationTotal() {
+    this.http.get(`${config.apiUrl}donation/total`).subscribe(
+      (resultData: any) => {
+          console.log('donation',resultData);
+          if (!resultData.error) {
+              this.donation = resultData.data || 0; 
+          } else {
+              console.log(resultData.message)
+          }
+      },
+      (error) => {
+          console.error('Error fetching Donation Data:', error);
+          alert("Error fetching Donation Data.");
+      }
     );
   }
 

@@ -22,6 +22,8 @@ router.route('/student/delete').post(studentController.deleteControllerfn);
 
 //Donation Route
 router.route('/donation/save-data').post(donationController.createDonationControllerfn);
+router.route('/donation/total').get(donationController.getTotalCountDonationControllerfn);
+
 
 
 //Auth Routes 

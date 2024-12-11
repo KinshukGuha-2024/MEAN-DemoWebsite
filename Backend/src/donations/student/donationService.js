@@ -3,7 +3,6 @@ const fs = require('fs');
 const path = require('path');
 const {ObjectId} = require('mongodb');
 
-
 module.exports.createDonationFromDBService = async (donationDetails) => {
     try {
         const donationModel = new donationModelComp();
@@ -13,15 +12,21 @@ module.exports.createDonationFromDBService = async (donationDetails) => {
         const nameMatch = text.match(/from ([a-zA-Z\s]+) for/i);
         const name = nameMatch ? nameMatch[1].trim() : null;
 
-        const paymentMatch = text.match(/(\b\w+-\w+\b) payment/i);
-        const fullWordBeforePayment = paymentMatch ? paymentMatch[1] : null;
-        let recur_value;
+        const paymentTypes = ['one-time', 'monthly', 'annually'];
 
-        if (fullWordBeforePayment === 'one-time') {
+        for (let type of paymentTypes) {
+            const regex = new RegExp(`\\b${type}\\b`, 'i');
+            if (regex.test(text)) {
+                recurtype_txt = type;
+            }
+        }
+
+        let recur_value;
+        if (recurtype_txt === 'one-time') {
             recur_value = 1;
-        } else if (fullWordBeforePayment === 'monthly') {
+        } else if (recurtype_txt === 'monthly') {
             recur_value = 2;
-        } else if (fullWordBeforePayment === 'yearly') {
+        } else if (recurtype_txt === 'annually') {
             recur_value = 3;
         } else {
             recur_value = null;
@@ -40,9 +45,24 @@ module.exports.createDonationFromDBService = async (donationDetails) => {
         return result;  
 
     } catch (error) {
-        throw new Error('Error saving Donation data: ' + error.message);  // Throw error to be handled by the controller
+        throw new Error('Error saving Donation data: ' + error.message);  
     }
 };
+
+module.exports.getTotalCountDonationFromDBService = async () => {
+    try {
+        const donations = await donationModelComp.find({});
+        const total = donations.reduce((sum, donation) => {
+            return sum + (donation.amount / 100); 
+        }, 0);
+
+        return total;  
+
+    } catch (error) {
+        throw new Error('Failed to fetch data from the database: ' + error.message);
+    }
+};
+
 
 
 

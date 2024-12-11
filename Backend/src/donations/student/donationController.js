@@ -17,5 +17,17 @@ exports.createDonationControllerfn = async (Request, res) => {
 };
 
 
+exports.getTotalCountDonationControllerfn = async (req, res) => {
+    try {
+        const donationCount = await donationService.getTotalCountDonationFromDBService();
+        console.log(donationCount);
+        res.status(200).json({ error: false, message: "", data: donationCount });
+    } catch (error) {
+        console.error("Error fetching donation data:", error.message);
+        res.status(500).json({ error: true, message: "Error fetching donation data" });
+    }
+};
+
+
 
 

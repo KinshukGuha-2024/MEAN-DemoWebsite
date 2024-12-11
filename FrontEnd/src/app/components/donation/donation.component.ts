@@ -117,6 +117,7 @@ export class DonationComponent {
 
   // Form submission logic
   onSubmit(form: NgForm) {
+
     if (!this.stripeCard) {
       console.error('Stripe Card Component is not initialized.');
       alert('Please wait until the card element is fully loaded.');
