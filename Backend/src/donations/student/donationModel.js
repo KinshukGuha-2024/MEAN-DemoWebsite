@@ -31,6 +31,11 @@ var donationSchema = new Schema({
     description:{
         type: String,
         required: true,
+    },
+    transaction_date: {
+        type: Date,  
+        required: true,
+        default: Date.now 
     }
    
 });
